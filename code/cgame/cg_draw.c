@@ -2351,23 +2351,6 @@ CG_DrawAmmoWarning
 =================
 */
 static void CG_DrawAmmoWarning( void ) {
-	const char	*s;
-
-	if ( cg_drawAmmoWarning.integer == 0 ) {
-		return;
-	}
-
-	if ( !cg.lowAmmoWarning ) {
-		return;
-	}
-
-	if ( cg.lowAmmoWarning == 2 ) {
-		s = "OUT OF AMMO";
-	} else {
-		s = "LOW AMMO WARNING";
-	}
-
-	CG_DrawString( 320, 64, s, colorWhite, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0, DS_PROPORTIONAL | DS_CENTER | DS_SHADOW );
 }
 
 
@@ -2734,7 +2717,6 @@ static void CG_WarmupEvents( void ) {
 				trap_S_StartLocalSound( cgs.media.countFightSound, CHAN_ANNOUNCER );
 				cg.warmupFightSound = cg.time + 750;
 			}
-			CG_CenterPrint( "FIGHT!", 120, GIANTCHAR_WIDTH*2 );
 			break;
 
 		case 1:

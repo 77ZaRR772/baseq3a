@@ -8,7 +8,7 @@ UIDIR = $(basedir)/q3_ui
 
 Q3ASM = ./tools/q3asm -vq3 -r -m -v
 Q3LCC = ./../../tools/q3lcc -DQ3_VM -S -Wf-g -I$(QADIR)
-7Z = 7z u -tzip -mx=9 -mpass=8 -mfb=255 --
+7Z = 7z u -tzip -mx=1 -mpass=4 -mfb=100 --
 
 QA_CFLAGS = -DQAGAME
 CG_CFLAGS = -DCGAME -I$(CGDIR)

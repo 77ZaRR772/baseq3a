@@ -1430,6 +1430,8 @@ static int CG_DrawPickupItem( int y ) {
 	float	*fadeColor;
 	const char *text;
 
+	return;
+
 	if ( cg.snap->ps.stats[STAT_HEALTH] <= 0 ) {
 		return y;
 	}

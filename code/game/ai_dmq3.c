@@ -3363,25 +3363,8 @@ void BotAimAtEnemy(bot_state_t *bs) {
 	//
 	VectorSubtract(entinfo.origin, entinfo.lastvisorigin, enemyvelocity);
 	VectorScale(enemyvelocity, 1 / entinfo.update_time, enemyvelocity);
-	//enemy origin and velocity is remembered every 0.5 seconds
-	if (bs->enemyposition_time < FloatTime()) {
-		//
-		bs->enemyposition_time = FloatTime() + 0.5;
-		VectorCopy(enemyvelocity, bs->enemyvelocity);
-		VectorCopy(entinfo.origin, bs->enemyorigin);
-	}
-	//if not extremely skilled
-	if (aim_skill < 0.9) {
-		VectorSubtract(entinfo.origin, bs->enemyorigin, dir);
-		//if the enemy moved a bit
-		if (VectorLengthSquared(dir) > Square(48)) {
-			//if the enemy changed direction
-			if (DotProduct(bs->enemyvelocity, enemyvelocity) < 0) {
-				//aim accuracy should be worse now
-				aim_accuracy *= 0.7f;
-			}
-		}
-	}
+	// Removed global aim_accuracy reduction to make aiming more perfect
+	// aim_accuracy *= 0.8f;
 	//check visibility of enemy
 	enemyvisible = BotEntityVisible(bs->entitynum, bs->eye, bs->viewangles, 360, bs->enemy);
 	//if the enemy is visible

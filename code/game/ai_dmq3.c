@@ -2747,10 +2747,10 @@ bot_moveresult_t BotAttackMove(bot_state_t *bs, int tfl) {
 		CrossProduct(hordir, up, sideward);
 		//reverse the vector depending on the strafe direction
 		if (bs->flags & BFL_STRAFERIGHT) VectorNegate(sideward, sideward);
-		//randomly go back a little
-		if (random() > 0.9) {
-			VectorAdd(sideward, backward, sideward);
-		}
+		// Disabled randomly going back a little
+		// if (random() > 0.9) {
+		// 	VectorAdd(sideward, backward, sideward);
+		// }
 		else {
 			//walk forward or backward to get at the ideal attack distance
 			if (dist > attack_dist + attack_range) {
@@ -3485,9 +3485,10 @@ void BotAimAtEnemy(bot_state_t *bs) {
 				}
 			}
 		}
-		bestorigin[0] += 20 * crandom() * (1 - aim_accuracy);
-		bestorigin[1] += 20 * crandom() * (1 - aim_accuracy);
-		bestorigin[2] += 10 * crandom() * (1 - aim_accuracy);
+		// Disabled random shaking of aim target
+		// bestorigin[0] += 20 * crandom() * (1 - aim_accuracy);
+		// bestorigin[1] += 20 * crandom() * (1 - aim_accuracy);
+		// bestorigin[2] += 10 * crandom() * (1 - aim_accuracy);
 	}
 	else {
 		//
@@ -3541,15 +3542,17 @@ void BotAimAtEnemy(bot_state_t *bs) {
 	//add some random stuff to the aim direction depending on the aim accuracy
 	if (aim_accuracy < 0.8) {
 		VectorNormalize(dir);
-		for (i = 0; i < 3; i++) dir[i] += 0.3 * crandom() * (1 - aim_accuracy);
+		// Disabled random shaking of aim direction
+		// for (i = 0; i < 3; i++) dir[i] += 0.3 * crandom() * (1 - aim_accuracy);
 	}
 	//set the ideal view angles
 	vectoangles(dir, bs->ideal_viewangles);
 	//take the weapon spread into account for lower skilled bots
-	bs->ideal_viewangles[PITCH] += 6 * wi.vspread * crandom() * (1 - aim_accuracy);
-	bs->ideal_viewangles[PITCH] = AngleMod(bs->ideal_viewangles[PITCH]);
-	bs->ideal_viewangles[YAW] += 6 * wi.hspread * crandom() * (1 - aim_accuracy);
-	bs->ideal_viewangles[YAW] = AngleMod(bs->ideal_viewangles[YAW]);
+	// Disabled random view angle shaking
+	// bs->ideal_viewangles[PITCH] += 6 * wi.vspread * crandom() * (1 - aim_accuracy);
+	// bs->ideal_viewangles[PITCH] = AngleMod(bs->ideal_viewangles[PITCH]);
+	// bs->ideal_viewangles[YAW] += 6 * wi.hspread * crandom() * (1 - aim_accuracy);
+	// bs->ideal_viewangles[YAW] = AngleMod(bs->ideal_viewangles[YAW]);
 	//if the bots should be really challenging
 	if (bot_challenge.integer) {
 		//if the bot is really accurate and has the enemy in view for some time
@@ -3745,10 +3748,11 @@ void BotMapScripts(bot_state_t *bs) {
 			VectorSubtract(buttonorg, bs->eye, dir);
 			vectoangles(dir, bs->ideal_viewangles);
 			aim_accuracy = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_AIM_ACCURACY, 0, 1);
-			bs->ideal_viewangles[PITCH] += 8 * crandom() * (1 - aim_accuracy);
-			bs->ideal_viewangles[PITCH] = AngleMod(bs->ideal_viewangles[PITCH]);
-			bs->ideal_viewangles[YAW] += 8 * crandom() * (1 - aim_accuracy);
-			bs->ideal_viewangles[YAW] = AngleMod(bs->ideal_viewangles[YAW]);
+			// Disabled random view angle shaking for specific attack
+			// bs->ideal_viewangles[PITCH] += 8 * crandom() * (1 - aim_accuracy);
+			// bs->ideal_viewangles[PITCH] = AngleMod(bs->ideal_viewangles[PITCH]);
+			// bs->ideal_viewangles[YAW] += 8 * crandom() * (1 - aim_accuracy);
+			// bs->ideal_viewangles[YAW] = AngleMod(bs->ideal_viewangles[YAW]);
 			//
 			if (InFieldOfVision(bs->viewangles, 20, bs->ideal_viewangles)) {
 				trap_EA_Attack(bs->client);
